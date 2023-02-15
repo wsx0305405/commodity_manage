@@ -4,6 +4,10 @@ const app = express();
 require('dotenv').config();
 const port = process.env.PORT || 3000;
 
+const order = require('./routes/order');
+// const product = require('./routes/product');
+// const member = require('./routes/member');
+
 // set cors
 app.use(require('cors')());
 // static files
@@ -12,6 +16,12 @@ app.use(express.static('public'));
 app.use(express.urlencoded({ extended: false }));
 // Parse application/json
 app.use(express.json());
+
+
+app.use('/',order);
+// app.use('/',product);
+// app.use('/',member);
+
 
 app.get('/',function(req,res){
     res.sendFile(__dirname + '/public/Home.html');
