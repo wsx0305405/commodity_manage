@@ -38,9 +38,9 @@ module.exports = class Order {
     // 更新訂單
     updateOrder(req,res,next){
         const updateList = {
-            orderID: req.params.oid,
-            memberID: req.params.mid,
-            productID: req.params.pid,
+            orderID: req.body.orderID,
+            memberID: req.body.memberID,
+            productID: req.body.productID,
             quantity: req.body.quantity,
             updateDate: getTime(),
         }
@@ -51,12 +51,12 @@ module.exports = class Order {
     // 刪除訂單
     deleteOrder(req,res,next){
         const deleteList = {
-            orderID: req.params.oid,
-            memberID: req.params.mid,
-            productID: req.params.pid,
+            orderID: req.body.orderID,
+            memberID: req.body.memberID,
+            productID: req.body.productID,
         }
         deleteOrderData(deleteList).then(result => {
-            res.redirect('/order');
+            res.json(result);
         })
     }
 }

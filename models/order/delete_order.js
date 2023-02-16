@@ -1,7 +1,4 @@
 const db = require('../connection_db');
-const OrderTool = require('../order/orderTool');
-
-let orderTool = new OrderTool();
 
 module.exports = function orderDelete(deleteList){
     return new Promise(async (resolve,reject) => {

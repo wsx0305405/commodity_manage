@@ -5,6 +5,7 @@ require('dotenv').config();
 const port = process.env.PORT || 3000;
 
 const order = require('./routes/order');
+// TODO:
 // const product = require('./routes/product');
 // const member = require('./routes/member');
 
@@ -19,11 +20,12 @@ app.use(express.json());
 
 
 app.use('/',order);
+// TODO:
 // app.use('/',product);
 // app.use('/',member);
 
 
-app.get('/',function(req,res){
+app.get('/',(req,res) => {
     res.sendFile(__dirname + '/public/Home.html');
 });
 

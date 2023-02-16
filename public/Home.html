@@ -21,19 +21,19 @@
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <button type="button" class="btn btn-outline-secondary">Product</button>
+                    <button type="button" class="btn btn-outline-secondary" disabled>Product</button>
                 </li>
                 <li class="nav-item">
                     <button type="button" class="btn btn-outline-secondary">Order</button>
                 </li>
                 <li class="nav-item">
-                    <button type="button" class="btn btn-outline-secondary">addOrder</button>
+                    <button type="button" class="btn btn-outline-secondary" disabled>AddOrder</button>
                 </li>
                 <li class="nav-item">
-                    <button type="button" class="btn btn-outline-secondary">Register</button>
+                    <button type="button" class="btn btn-outline-secondary" disabled>Register</button>
                 </li>
                 <li class="nav-item">
-                    <button type="button" class="btn btn-outline-secondary">Login</button>
+                    <button type="button" class="btn btn-outline-secondary" disabled>Login</button>
                 </li>
             </ul>
           </div>
@@ -49,13 +49,12 @@
     <script>
         const btns = document.querySelectorAll('button');
         const table = document.querySelector('table');
-        // 配置baseURL
         axios.defaults.baseURL = 'http://127.0.0.1:3000';
 
         btns[0].onclick = function(){
-            // GET請求
-            axios.get('/product',{
-
+            axios({
+                method: 'get',
+                url: '/product',
             }).then(products => {
                 var thead = document.createElement('thead');
                 table.appendChild(thead);
@@ -105,19 +104,16 @@
                     var td = document.createElement('td');
                     tr.appendChild(td);
                     td.innerHTML = '<a href="#" class="btn btn-light btn-small">Edit</a> <a href="#" class="btn btn-light btn-small">Delete</a>';
-
                 }
             })
         }
 
         btns[1].onclick = function(){
             axios({
-                // 請求方法
                 method: 'get',
-                // url
                 url: '/order',
             }).then(response => {
-
+                table.innerHTML = '';
                 var thead = document.createElement('thead');
                 table.appendChild(thead);
                 var tr = document.createElement('tr');
@@ -143,10 +139,6 @@
                 var td = document.createElement('td');
                 tr.appendChild(td);
                 td.innerHTML = 'Action';
-
-                
-                
-                
 
                 var tbody = document.createElement('tbody');
                 table.appendChild(tbody);
@@ -175,8 +167,130 @@
 
                     var td = document.createElement('td');
                     tr.appendChild(td);
-                    td.innerHTML = '<a href="/order/<%=orderdata.order_id%>/<%=orderdata.member_id%>/<%=orderdata.product_id%>" class="btn btn-light btn-small">Edit</a> <a href="/delete/<%=orderdata.order_id%>/<%=orderdata.member_id%>/<%=orderdata.product_id%>" class="btn btn-light btn-small">Del</a> <a href="/delete/<%=orderdata.order_id%>/<%=orderdata.member_id%>/<%=orderdata.product_id%>" class="btn btn-light btn-small">submit</a>';
 
+                    var edit_button = document.createElement('button');
+                    edit_button.innerHTML = 'edit';
+
+                    edit_button.onclick = async function(){
+                        table.innerHTML = '';
+
+                        var div = document.createElement('div');
+                        div.className = 'col-6';
+                        table.appendChild(div);
+
+                        var label = document.createElement('label');
+                        label.className = 'form-label';
+                        label.innerText = ' order_id ';
+                        var input = document.createElement('input');
+                        input.id = 'order_id';
+                        input.type = 'text';
+                        input.className = 'form-control';
+                        input.name = 'oid';
+                        input.value = response.data[i].order_id;
+                        input.disabled;
+
+                        div.appendChild(label);
+                        div.appendChild(input);
+
+                        var div = document.createElement('div');
+                        div.className = 'col-6';
+                        table.appendChild(div);
+
+                        var label = document.createElement('label');
+                        label.className = 'form-label';
+                        label.innerText = ' member_id ';
+                        var input = document.createElement('input');
+                        input.id = 'member_id';
+                        input.type = 'text';
+                        input.className = 'form-control';
+                        input.name = 'mid';
+                        input.value = response.data[i].member_id;
+                        input.disabled;
+
+                        div.appendChild(label);
+                        div.appendChild(input);
+
+                        var div = document.createElement('div');
+                        div.className = 'col-6';
+                        table.appendChild(div);
+
+                        var label = document.createElement('label');
+                        label.className = 'form-label';
+                        label.innerText = ' product_id ';
+                        var input = document.createElement('input');
+                        input.id = 'product_id';
+                        input.type = 'text';
+                        input.className = 'form-control';
+                        input.name = 'pid';
+                        input.value = response.data[i].product_id;
+                        input.disabled;
+
+                        div.appendChild(label);
+                        div.appendChild(input);
+
+                        var div = document.createElement('div');
+                        div.className = 'col-6';
+                        table.appendChild(div);
+
+                        var label = document.createElement('label');
+                        label.className = 'form-label';
+                        label.innerText = ' quantity ';
+                        var input = document.createElement('input');
+                        input.id = 'quantity';
+                        input.type = 'text';
+                        input.className = 'form-control';
+                        input.name = 'quantity';
+                        input.value = response.data[i].order_quantity;
+                        input.disabled;
+
+                        div.appendChild(label);
+                        div.appendChild(input);
+
+                        var update = document.createElement('button');
+                        update.name = 'update';
+                        
+                        table.appendChild(update);
+
+                        update.onclick = async function(){
+                                await axios({
+                                method: 'put',
+                                url: '/order',
+                                headers: {
+                                    'Content-Type': 'application/x-www-form-urlencoded',
+                                },
+                                data: {
+                                    orderID: document.getElementById('order_id').value,
+                                    memberID: document.getElementById('member_id').value,
+                                    productID: document.getElementById('product_id').value,
+                                    quantity: document.getElementById('quantity').value,
+                                }
+                            });
+                            table.innerHTML = '';
+                        }
+                    }
+
+
+                    var del_button = document.createElement('button');
+                    del_button.innerHTML = 'delete';
+
+                    del_button.onclick = async function(){
+                        await axios({
+                            method: 'delete',
+                            url: '/order',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded',
+                            },
+                            data: {
+                                orderID: response.data[i].order_id,
+                                memberID: response.data[i].member_id,
+                                productID: response.data[i].product_id, 
+                            }
+                        });
+                        history.go(0);
+                    }
+                    td.appendChild(edit_button);
+                    td.appendChild(del_button);
+                
                 }
             })
         }
