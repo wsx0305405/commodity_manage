@@ -7,7 +7,7 @@ const getTime = require('../../service/getTime');
 
 module.exports = class Order {
     // 取得全部訂單資料
-    getAllOrder(req,res,next){
+    getOrder(req,res,next){
         getAllOrder().then(result => {
             res.json(result);
         },(err) => {
@@ -15,7 +15,7 @@ module.exports = class Order {
                 result: err,
             })
         })
-    }
+    };
     
     // 新增單筆訂單
     postOrderOneProduct(req,res,next){
