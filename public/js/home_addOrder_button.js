@@ -6,16 +6,6 @@ var home_addorder = document.getElementById('Home_AddOrder');
             var div = document.createElement('div');
             div.className = 'col-6';
             table.appendChild(div);
-            var label = document.createElement('label');
-            label.className = 'form-label';
-            label.innerText = ' order_id ';
-            var input = document.createElement('input');
-            input.id = 'order_id';
-            input.type = 'text';
-            input.className = 'form-control';
-            input.name = 'oid';
-            div.appendChild(label);
-            div.appendChild(input);
 
             var div = document.createElement('div');
             div.className = 'col-6';
@@ -73,12 +63,11 @@ var home_addorder = document.getElementById('Home_AddOrder');
                         'Content-Type': 'application/x-www-form-urlencoded',
                     },
                     data: {
-                        orderID: document.getElementById('order_id').value,
                         memberID: document.getElementById('member_id').value,
                         productID: document.getElementById('product_id').value,
                         quantity: document.getElementById('quantity').value,
                     }
                 });
-                table.innerHTML = '';
+                table.innerHTML = '添加訂單成功';
             }
         }

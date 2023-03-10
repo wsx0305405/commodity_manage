@@ -80,7 +80,7 @@ var home_order = document.getElementById('Home_Order');
                         input.className = 'form-control';
                         input.name = 'oid';
                         input.value = response.data[i].order_id;
-                        input.disabled;
+                        input.disabled = 'true';
 
                         div.appendChild(label);
                         div.appendChild(input);
@@ -98,7 +98,7 @@ var home_order = document.getElementById('Home_Order');
                         input.className = 'form-control';
                         input.name = 'mid';
                         input.value = response.data[i].member_id;
-                        input.disabled;
+                        input.disabled = 'true';
 
                         div.appendChild(label);
                         div.appendChild(input);
@@ -116,7 +116,6 @@ var home_order = document.getElementById('Home_Order');
                         input.className = 'form-control';
                         input.name = 'pid';
                         input.value = response.data[i].product_id;
-                        input.disabled;
 
                         div.appendChild(label);
                         div.appendChild(input);
@@ -146,7 +145,7 @@ var home_order = document.getElementById('Home_Order');
                         table.appendChild(update);
 
                         update.onclick = async function(){
-                                await axios({
+                            await axios({
                                 method: 'put',
                                 url: '/order',
                                 headers: {
@@ -159,7 +158,7 @@ var home_order = document.getElementById('Home_Order');
                                     quantity: document.getElementById('quantity').value,
                                 }
                             });
-                            table.innerHTML = '';
+                            table.innerHTML = '更新資料完成';
                         }
                     }
 
@@ -180,7 +179,7 @@ var home_order = document.getElementById('Home_Order');
                                 productID: response.data[i].product_id, 
                             }
                         });
-                        table.innerHTML = '';
+                        table.innerHTML = '刪除資料成功';
                     }
                     td.appendChild(edit_button);
                     td.appendChild(del_button);

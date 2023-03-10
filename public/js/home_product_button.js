@@ -5,6 +5,8 @@ home_product.onclick = function(){
         method: 'get',
         url: '/product',
     }).then(products => {
+        table.innerHTML = '';
+
         var thead = document.createElement('thead');
         table.appendChild(thead);
         var tr = document.createElement('tr');
@@ -27,7 +29,7 @@ home_product.onclick = function(){
 
         var tbody = document.createElement('tbody');
         table.appendChild(tbody);
-        
+
         for(let i = 0;i < products.data.length; i++){
             var tr = document.createElement('tr');
             tbody.appendChild(tr);

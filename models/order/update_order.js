@@ -9,8 +9,9 @@ module.exports = function orderUpdate(updateList){
         const price = await orderTool.getProductPrice(updateList.productID);
         const orderPrice = updateList.quantity * price;
 
-        let sql = 'UPDATE order_list SET order_quantity = ?, order_price = ?, update_date = ? WHERE order_id = ? AND member_id = ? AND product_id = ?';
-        await db.query(sql,[updateList.quantity,orderPrice,updateList.updateDate,updateList.orderID,updateList.memberID,updateList.productID],(err,rows) => {
+        let sql = 'UPDATE order_list SET order_quantity = ?, order_price = ?, update_date = ?, product_id = ? WHERE order_id = ? AND member_id = ?';
+        console.log(updateList);
+        await db.query(sql,[updateList.quantity,orderPrice,updateList.updateDate,updateList.productID,updateList.orderID,updateList.memberID],(err,rows) => {
             if(err){
                 console.log(err);
                 result.status = "更新訂單資料失敗";

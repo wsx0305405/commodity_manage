@@ -44,8 +44,15 @@ module.exports = class Order {
             quantity: req.body.quantity,
             updateDate: getTime(),
         }
-        updateData(updateList);
-        res.redirect('/order');
+        updateData(updateList).then(result => {
+            res.json(result);
+        },(err) =>{
+            res.json({
+                result: err
+            })
+        });
+        // res.redirect('/order');
+
     }
 
     // 刪除訂單
